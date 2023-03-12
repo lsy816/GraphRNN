@@ -378,7 +378,7 @@ def train_mlp_forward_epoch(epoch, args, rnn, output, data_loader):
 
         if epoch % args.epochs_log==0 and batch_idx==0: # only output first batch's statistics
             print('Epoch: {}/{}, train loss: {:.6f}, graph type: {}, num_layer: {}, hidden: {}'.format(
-                epoch, args.epochs,loss.data[0], args.graph_type, args.num_layers, args.hidden_size_rnn))
+                epoch, args.epochs,loss.item(), args.graph_type, args.num_layers, args.hidden_size_rnn))
 
         # logging
         log_value('loss_'+args.fname, loss.item(), epoch*args.batch_ratio+batch_idx)

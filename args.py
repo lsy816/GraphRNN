@@ -5,16 +5,16 @@ class Args():
         ### if clean tensorboard
         self.clean_tensorboard = False
         ### Which CUDA GPU device is used for training
-        self.cuda = 1
+        self.cuda = 0
 
         ### Which GraphRNN model variant is used.
         # The simple version of Graph RNN
-        # self.note = 'GraphRNN_MLP'
+        self.note = 'GraphRNN_MLP'
         # The dependent Bernoulli sequence version of GraphRNN
-        self.note = 'GraphRNN_RNN'
+        # self.note = 'GraphRNN_RNN'
 
         ## for comparison, removing the BFS compoenent
-        # self.note = 'GraphRNN_MLP_nobfs'
+        self.note = 'GraphRNN_MLP_nobfs'
         # self.note = 'GraphRNN_RNN_nobfs'
 
         ### Which dataset is used to train the model
@@ -23,12 +23,12 @@ class Args():
         # self.graph_type = 'caveman_small'
         # self.graph_type = 'caveman_small_single'
         # self.graph_type = 'community4'
-        self.graph_type = 'grid'
+        # self.graph_type = 'grid'
         # self.graph_type = 'grid_small'
         # self.graph_type = 'ladder_small'
 
         # self.graph_type = 'enzymes'
-        # self.graph_type = 'enzymes_small'
+        self.graph_type = 'enzymes_small'
         # self.graph_type = 'barabasi'
         # self.graph_type = 'barabasi_small'
         # self.graph_type = 'citeseer'
@@ -64,7 +64,7 @@ class Args():
         ### training config
         self.num_workers = 4 # num workers to load data, default 4
         self.batch_ratio = 32 # how many batches of samples per epoch, default 32, e.g., 1 epoch = 32 batches
-        self.epochs = 3000 # now one epoch means self.batch_ratio x batch_size
+        self.epochs = 1000 # now one epoch means self.batch_ratio x batch_size
         self.epochs_test_start = 100
         self.epochs_test = 100
         self.epochs_log = 100
@@ -88,7 +88,7 @@ class Args():
 
 
         self.load = False # if load model, default lr is very low
-        self.load_epoch = 3000
+        self.load_epoch = 1000
         self.save = True
 
 

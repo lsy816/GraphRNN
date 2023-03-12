@@ -29,7 +29,7 @@ def Graph_load_batch(min_num_nodes = 20, max_num_nodes = 1000, name = 'ENZYMES',
     print('Loading graph dataset: '+str(name))
     G = nx.Graph()
     # load data
-    path = 'dataset/'+name+'/'
+    path = 'GraphRNN/dataset/'+name+'/'
     data_adj = np.loadtxt(path+name+'_A.txt', delimiter=',').astype(int)
     if node_attributes:
         data_node_att = np.loadtxt(path+name+'_node_attributes.txt', delimiter=',')
@@ -360,8 +360,8 @@ def test_encode_decode_adj_full():
     # G = nx.ladder_graph(10)
     G = nx.karate_club_graph()
     # get bfs adj
-    adj = np.asarray(nx.to_numpy_matrix(G))
-    G = nx.from_numpy_matrix(adj)
+    adj = np.asarray(nx.to_numpy_array(G))
+    G = nx.from_numpy_array(adj)
     start_idx = np.random.randint(adj.shape[0])
     x_idx = np.array(bfs_seq(G, start_idx))
     adj = adj[np.ix_(x_idx, x_idx)]
@@ -388,7 +388,7 @@ class Graph_sequence_sampler_pytorch(torch.utils.data.Dataset):
         self.adj_all = []
         self.len_all = []
         for G in G_list:
-            self.adj_all.append(np.asarray(nx.to_numpy_matrix(G)))
+            self.adj_all.append(np.asarray(nx.to_numpy_array(G)))
             self.len_all.append(G.number_of_nodes())
         if max_num_node is None:
             self.n = max(self.len_all)
@@ -462,7 +462,7 @@ class Graph_sequence_sampler_pytorch_nobfs(torch.utils.data.Dataset):
         self.adj_all = []
         self.len_all = []
         for G in G_list:
-            self.adj_all.append(np.asarray(nx.to_numpy_matrix(G)))
+            self.adj_all.append(np.asarray(nx.to_numpy_array(G)))
             self.len_all.append(G.number_of_nodes())
         if max_num_node is None:
             self.n = max(self.len_all)
@@ -503,7 +503,7 @@ class Graph_sequence_sampler_pytorch_canonical(torch.utils.data.Dataset):
         self.adj_all = []
         self.len_all = []
         for G in G_list:
-            self.adj_all.append(np.asarray(nx.to_numpy_matrix(G)))
+            self.adj_all.append(np.asarray(nx.to_numpy_array(G)))
             self.len_all.append(G.number_of_nodes())
         if max_num_node is None:
             self.n = max(self.len_all)
@@ -576,7 +576,7 @@ class Graph_sequence_sampler_pytorch_nll(torch.utils.data.Dataset):
         self.adj_all = []
         self.len_all = []
         for G in G_list:
-            adj = np.asarray(nx.to_numpy_matrix(G))
+            adj = np.asarray(nx.to_numpy_array(G))
             adj_temp = self.calc_adj(adj)
             self.adj_all.extend(adj_temp)
             self.len_all.append(G.number_of_nodes())
@@ -759,7 +759,7 @@ class Graph_sequence_sampler_fast():
 
         self.adj_all = []
         for G in G_list:
-            self.adj_all.append(np.asarray(nx.to_numpy_matrix(G)))
+            self.adj_all.append(np.asarray(nx.to_numpy_array(G)))
 
 
     def sample(self):

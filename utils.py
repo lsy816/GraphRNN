@@ -461,11 +461,11 @@ def load_graph_list(fname,is_real=True):
     with open(fname, "rb") as f:
         graph_list = pickle.load(f)
     for i in range(len(graph_list)):
-        edges_with_selfloops = graph_list[i].selfloop_edges()
+        edges_with_selfloops = list(nx.selfloop_edges(graph_list[i]))#版本问题更改迭代器
         if len(edges_with_selfloops)>0:
             graph_list[i].remove_edges_from(edges_with_selfloops)
         if is_real:
-            graph_list[i] = max(nx.connected_component_subgraphs(graph_list[i]), key=len)
+            graph_list[i] = max(list(graph_list[i].subgraph(c) for c in nx.connected_components(graph_list[i])), key=len)#版本问题更改
             graph_list[i] = nx.convert_node_labels_to_integers(graph_list[i])
         else:
             graph_list[i] = pick_connected_component_new(graph_list[i])
